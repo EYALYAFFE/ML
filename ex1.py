@@ -372,25 +372,106 @@ dby =now-datetime.timedelta(days=2)
 dif=now+datetime.timedelta(hours=12)
 print(dby)    
 print(dif)
+#%%
 #2.13
 try:
-    print(1/0)
+    x=input()
+    y=int(x)
+    print(y)
+except:
+    print("the input is not integer")
+else:
+    print("Nothing went wrong")
 
-except ZeroDivisionError:
-    print("You can't divide by zero, you're silly.")
+#%%
+#2.14
+#%%
+#2.15  
+import logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+logger.info('Start reading database')
+# read database here
+records = {'john': 55, 'tom': 66}
+logger.debug('Records: %s', records)
+logger.info('Updating records ...')
+# update records here
+logger.info('Finish updating records')
+
+import logging
+logging.basicConfig(filename='example.log',filemode="w",level=logging.DEBUG)
+logging.debug('This message should go to the log file')
+logging.info('So should this')
+logging.warning('And this, too')
+
+#%%
+#2.17
+import os.path
+home_folder = os.path.expanduser('~')
+print(home_folder) 
+current=os.listdir(home_folder)
+print(current)   
+    
+#%%
+#2.18
+import glob    
+configfiles = glob.glob('C:/Users/User/Downloads/*.pdf')
+print(configfiles)
     
     
+
+#%%
+#2.19
+mylist=["zero","one","two","three","four", "five","six","seven","eight","nine"]
+for i, item in enumerate(mylist):
+  print(i, item)
     
     
+#%%
+#2.20
+import threading 
+def print1(num): 
+    for i in range(0,num):
+        print(i,)
+def print2(num): 
+    for i in range(0,num):
+        print(i,)
+if __name__ == "__main__": 
+    t1 = threading.Thread(target=print1, args=(10,)) 
+    t2 = threading.Thread(target=print2, args=(10,)) 
+    t1.start() 
+    t2.start() 
+#    t1.join() 
+#    t2.join() 
+    print("Done!")    
     
-
-
-
-
-
-
-
-
-
-
-            
+    
+#%%
+#2.21
+import random, math
+mylist=["zero","one","two","three","four", "five","six","seven","eight","nine"]
+rand_number=math.ceil(random.uniform(0, 10.0)-1) 
+size_of_first_list=math.ceil(random.uniform(0, 10.0)-1)
+size_of_second_list=10-size_of_first_list
+print(size_of_first_list)
+vector_of_selectd_indexs=[0,0,0,0,0,0,0,0,0,0]    
+mylist1=[]
+mylist2=[]
+i=0
+while i<size_of_first_list:
+    temp_rand=math.ceil(random.uniform(0, 10.0)-1)
+    while vector_of_selectd_indexs[temp_rand]==1:
+        temp_rand=math.ceil(random.uniform(0, 10.0)-1)
+    mylist1.append(mylist[temp_rand])
+    vector_of_selectd_indexs[temp_rand]=1
+    i=i+1
+i=0
+while i<size_of_second_list:
+    temp_rand=math.ceil(random.uniform(0, 10.0)-1)
+    while vector_of_selectd_indexs[temp_rand]==1:
+        temp_rand=math.ceil(random.uniform(0, 10.0)-1)
+    mylist2.append(mylist[temp_rand])
+    vector_of_selectd_indexs[temp_rand]=1
+    i=i+1
+print(mylist1)
+print(mylist2)           
