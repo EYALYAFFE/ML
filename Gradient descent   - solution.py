@@ -61,7 +61,7 @@ def run_gradient_descent_for_loops(X,y,start,rate,epochs):
         print('epoch {}, loss {}, new t {}'.format(epoch,loss,t))
         
 
-run_gradient_descent(X,y,start,0.01,1000)
+run_gradient_descent(X,y,start,0.01,2)
 
 
 
