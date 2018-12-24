@@ -5,8 +5,8 @@ import numpy as np
 url="http://archive.ics.uci.edu/ml/machine-learning-databases/breast-cancer-wisconsin/wdbc.data"
 data=pd.read_csv(url)
 data=data.values
-train_data=data[0:200,:] #this is the train data
-test_data=data[200:568,:] #this is the test data
+train_data=data[0:100,:] #this is the train data
+test_data=data[100:568,:] #this is the test data
 #%%
 import math
 import random
@@ -148,7 +148,6 @@ def predicValueFor10Trees(roots,row):
         return 'M'
     else:
         return 'B'
-
 
 roots=create10Trees()
 

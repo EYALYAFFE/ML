@@ -1,8 +1,4 @@
-#%%
-import numpy as np
-myarray = np.array([[4,5,6]])
-newrow = [[1,2,3]]
-myarray = np.vstack([myarray,newrow])
+
 #%%
 import pandas as pd
 import numpy as np
@@ -15,7 +11,6 @@ test_data=data[500:568,:]
 
 #%%
 import math
-import numpy as np
 
 def calcWeightedAvergaeOfSons(data,feature,mean):
     small=np.empty([0, 32], dtype=float)
@@ -49,7 +44,7 @@ def calcFeatureAndValue(data):
         mean=np.mean(data[:,feature])
         temp_gain=calcWeightedAvergaeOfSons(data,feature,mean)
         list_of_ginis.append(temp_gain)
-    column=list_of_ginis.index(min(list_of_ginis))
+    column=list_of_ginis.index(min(list_of_ginis))+2
     value=np.mean(data[:,column])
     return column, value
 
@@ -105,15 +100,16 @@ def split(data,feature,mean):
     return small,big
 root = node(train_data,0)
 root.buildTree()
-#def displayAccuracy(model,test_data):
-#    counter=0
-#    for i in range(len(model)):
-#        if (model[i]==test_data[i]):
-#            counter+=1
-#    return (counter/(len(model)))*100
-#model=[]
-#for i in range(len(test_data)):
-#    model.append(root.predict(test_data.iloc[i]))
-#    
-#test_data_as_list=list(test_data['M'])
-#print(displayAccuracy(model,test_data_as_list))
+
+def displayAccuracy(model,test_data):
+    counter=0
+    for i in range(len(model)):
+        if (model[i]==test_data[i]):
+            counter+=1
+    return (counter/(len(model)))*100
+model=[]
+for i in range(len(test_data)):
+    model.append(root.predict(test_data[i]))
+    
+test_data_as_list=list(test_data[:,1])
+print(displayAccuracy(model,test_data_as_list))

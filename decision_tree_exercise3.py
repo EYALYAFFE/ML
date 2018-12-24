@@ -5,30 +5,10 @@ import numpy as np
 url="http://archive.ics.uci.edu/ml/machine-learning-databases/breast-cancer-wisconsin/wdbc.data"
 data=pd.read_csv(url)
 data=data.values
-train_data=data[0:200,:] #this is the train data
-test_data=data[200:568,:] #this is the test data
+train_data=data[0:100,:] #this is the train data
+test_data=data[100:568,:] #this is the test data
 #%%
 import math
-import random
-
-def chooseRandomNumberOfFeatures(num_of_features):
-    A = list(range(2,num_of_features))
-    k = math.floor(math.sqrt(num_of_features))
-    m = 1
-    samples = []
-    while len(samples) < m:
-        samples=random.sample(A, k)
-    return samples    
-
-def subsample_create(old_data):
-    indexs_of_data=[]
-    new_data=np.empty([0,32],dtype='float')
-    size=len(old_data)
-    for i in range(size):
-        indexs_of_data.append(random.randint(0,size))
-    for i in range(size):
-        new_data = np.vstack([new_data,data[indexs_of_data[i]]])
-    return new_data
 
 def calcGini(data,feature,mean):
     small=np.empty([0, 32], dtype=float)    #just an empty array
@@ -58,8 +38,7 @@ def calcImpurity(data):
 
 def calcFeatureAndValue(data):
     min_gini=1
-    features=chooseRandomNumberOfFeatures(data.shape[1])
-    for feature in features:
+    for feature in range(2,32):
         for row in range(len(data)):
             temp_gini=calcGini(data,feature,data[row][feature])
             if (temp_gini<min_gini):
@@ -127,34 +106,9 @@ def displayAccuracy(model,test_data):
         if (model[i]==test_data[i]):
             counter+=1
     return (counter/(len(model)))*100
-
-def create10Trees():
-    roots=[]
-    for i in range(10):
-        root = node(subsample_create(train_data),0)
-        root.buildTree()
-        roots.append(root)
-        print('finished build the {} tree'.format(i))
-    return roots
-
-def predicValueFor10Trees(roots,row):
-    results=[]
-    for i in range(10):
-        temp_result=roots[i].predict(row)
-        results.append(temp_result)
-    m_count=results.count('M')
-    b_count=results.count('B')
-    if m_count>b_count:
-        return 'M'
-    else:
-        return 'B'
-
-
-roots=create10Trees()
-
 model=[]
 for i in range(len(test_data)):
-    model.append(predicValueFor10Trees(roots,test_data[i]))
+    model.append(root.predict(test_data[i]))
     
 test_data_as_list=list(test_data[:,1])
 print(displayAccuracy(model,test_data_as_list))
